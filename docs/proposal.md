@@ -105,7 +105,7 @@ The project will follow the Agile life cycle:
 
 ## 9. Project Diagrams
 
-Stored in [`docs/diagrams/`](docs/diagrams/):
+Stored in [`docs/diagrams/`](diagrams/):
 
 - Context Diagram (Level 0)
 - Level 1 Data Flow Diagram
