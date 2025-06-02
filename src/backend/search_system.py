@@ -41,14 +41,14 @@ def search_games(query=None, filters=None, sort_by="rank"):
     if sort_by == "rank":
         results.sort(key=lambda g: int(g.get("Rank:boardgame", 999999)), reverse=False)
     elif sort_by == "owners":
-        results.sort(key=lambda g: int(g.get("Owners", 0)), reverse=True)
+        results.sort(key=lambda g: int(g.get("NumOwned", 0)), reverse=True)
 
     return results
 
 if __name__ == "__main__":
     # Example usage
     print("Search Results:")
-    search_results = search_games(filters={})
+    search_results = search_games(query="monopoly", sort_by="owners")
     for game in search_results:
-        print(game.get("Name"), "-", game.get("Rank:boardgame", "N/A"), "-", game.get("BGGId", "N/A"))
+        print(game.get("Name"), "-", game.get("Rank:boardgame", "N/A"), "-", game.get("BGGId", "N/A"), "-", game.get("NumOwned")) 
     print(f"Total games found: {len(search_results)}")
