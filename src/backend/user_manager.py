@@ -79,3 +79,29 @@ def remove_from_wishlist(username, game_id):
     users[username]["wishlist"].remove(game_id)
     save_users(users)
     return True, "Game removed from wishlist successfully."
+
+def remove_user(username):
+    users = load_users()
+    if username not in users:
+        return False, "Username not found."
+    del users[username]
+    save_users(users)
+    return True, "User removed successfully."
+
+# --- Testing user manager ---
+if __name__ == "__main__":
+    print("Testing User Management System:")
+    print(signup("testuser", "password123")) # Should succeed
+    print(login("testuser", "password123")) # Should succeed
+    print(add_to_wishlist("testuser", "12345")) # Should succeed
+    print(get_wishlist("testuser")) # Should contain "12345"
+    print(remove_from_wishlist("testuser", "12345")) # Should succeed
+    print(get_wishlist("testuser")) # Should be empty now
+    print(signout("testuser")) # Should succeed
+    print(login("testuser", "wrongpassword"))  # Should fail
+    print(login("nouser", "password123"))  # Should fail
+    print(signup("testuser", "short"))  # Should fail due to short password
+    print(remove_user("testuser"))  # Should succeed
+    print(get_wishlist("testuser"))  # Should fail since user is removed
+    print(remove_user("nouser"))  # Should fail since user does not exist
+    print("User Management System tests completed.")
