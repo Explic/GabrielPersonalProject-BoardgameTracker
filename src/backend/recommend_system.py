@@ -34,12 +34,12 @@ def recommend_games(input_bgg_ids, num_recommendations=20):
             game_tags = set(game.get("Tags", []))
             score += len(input_tags & game_tags)
 
-            # Compare themes
+            # Add 2 points for each matching theme
             input_themes = {tag for tag in input_tags if tag.startswith("Theme:")}
             game_themes = {tag for tag in game_tags if tag.startswith("Theme:")}
             score += len(input_themes & game_themes) * 2  # Give more weight to themes
 
-            # Compare playtime
+            # Add a point for similar playtime
             input_playtime = int(input_game.get("ComMaxPlaytime", 0))
             game_playtime = int(game.get("ComMaxPlaytime", 0))
             if abs(input_playtime - game_playtime) <= 30:  # Allow a 30-minute difference
@@ -58,6 +58,15 @@ def recommend_games(input_bgg_ids, num_recommendations=20):
             # Games with a high bgg rank are more likely to be recommended
             if int(game.get("Rank:boardgame", 999999)) < 100:
                 score += 1
+            
+            # Add 2 points for each matching category (Cat) tag
+            input_cats = {i for i, value in input_game.items() if i.startswith("Cat:") and value == "1"}
+            game_cats = {i for i, value in game.items() if i.startswith("Cat:") and value == "1"}
+            score += len(input_cats & game_cats) * 2
+        
+        # Makes it so that the game itself is not recommended
+        if game.get("BGGId") in input_bgg_ids:
+            score = 0
 
         if score > 0:
             recommendations.append((score, game))
@@ -67,7 +76,7 @@ def recommend_games(input_bgg_ids, num_recommendations=20):
     return [game for _, game in recommendations[:num_recommendations]]
 
 if __name__ == "__main__":
-    # Example usage
+    # Example usage / testing
     example_bgg_ids = ["174430"]  # Gloomhaven
 
     recommendations = recommend_games(example_bgg_ids)
@@ -80,4 +89,4 @@ if __name__ == "__main__":
     print("\n\nRecommended Games for Pandemic:")
     for game in recommendations:
         print(game.get("Name"))
-    
+
