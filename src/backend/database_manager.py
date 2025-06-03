@@ -3,13 +3,13 @@ import json
 import os
 from tqdm import tqdm
 
-# === File Paths ===
+# File path
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 OUTPUT_FILE = os.path.join(DATA_DIR, "cleaned_combined_games.json")
 
 
-# === CSV Loader ===
+# Loads CSV files into a dictionary
 def load_csv_to_dict(filename, key_field):
     path = os.path.join(DATA_DIR, filename)
     if not os.path.exists(path):
@@ -23,12 +23,12 @@ def load_csv_to_dict(filename, key_field):
     return data
 
 
-# === Binary Tag Extractor ===
+# Removes the crappy binary tag thing
 def extract_active_tags(row, label_prefix):
     return [f"{label_prefix}:{key}" for key, value in row.items() if value == "1" and key != "BGGId"]
 
 
-# === Merger and Cleaner ===
+# Merge everything
 def merge_and_clean_datasets():
     games = load_csv_to_dict("GAMES.csv", "BGGId")
     mechanics = load_csv_to_dict("MECHANICS.csv", "BGGId")
@@ -65,7 +65,7 @@ def merge_and_clean_datasets():
     return combined
 
 
-# === Sorter by Rank then ID ===
+# Sorts the combined dataset by rank and BGGId
 def sort_combined_data(games):
     def sort_key(game):
         try:
@@ -78,7 +78,7 @@ def sort_combined_data(games):
     return sorted(games, key=sort_key)
 
 
-# === Save Final Cleaned File ===
+# Saves it
 def save_cleaned_dataset():
     os.makedirs(DATA_DIR, exist_ok=True)
     combined = merge_and_clean_datasets()
@@ -87,8 +87,8 @@ def save_cleaned_dataset():
         json.dump(sorted_combined, f, indent=2)
     print(f"\nSaved {len(sorted_combined)} sorted games to: {OUTPUT_FILE}")
 
-
-# === CLI Entry Point ===
+# Makes a json file with a clean sorted dataset
 if __name__ == "__main__":
     save_cleaned_dataset()
     print("Database manager executed successfully.")
+
