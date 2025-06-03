@@ -21,7 +21,8 @@ def recommend_games(input_bgg_ids, num_recommendations=20):
     input_games = [game for game in all_games if game.get("BGGId") in input_bgg_ids]
 
     if not input_games:
-        raise ValueError("No matching games found for the provided BGGIds.")
+        print("No matching games found for the provided BGGIds.")
+        return
 
     recommendations = []
 

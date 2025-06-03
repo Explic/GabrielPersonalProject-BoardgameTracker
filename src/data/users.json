@@ -1,6 +1,6 @@
 {
     "testuser": {
-        "password": "password123",
+        "password": "testpassword",
         "wishlist": []
     }
 }
