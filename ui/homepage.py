@@ -66,16 +66,6 @@ class Ui_HomeWindow(object):
         self.gridLayout = QGridLayout(self.PopularGamesTab)
         self.gridLayout.setObjectName(u"gridLayout")
         self.BoardgameList = QListWidget(self.PopularGamesTab)
-        QListWidgetItem(self.BoardgameList)
-        QListWidgetItem(self.BoardgameList)
-        QListWidgetItem(self.BoardgameList)
-        QListWidgetItem(self.BoardgameList)
-        QListWidgetItem(self.BoardgameList)
-        QListWidgetItem(self.BoardgameList)
-        QListWidgetItem(self.BoardgameList)
-        QListWidgetItem(self.BoardgameList)
-        QListWidgetItem(self.BoardgameList)
-        QListWidgetItem(self.BoardgameList)
         self.BoardgameList.setObjectName(u"BoardgameList")
         self.BoardgameList.setFrameShape(QFrame.StyledPanel)
         self.BoardgameList.setFrameShadow(QFrame.Sunken)
@@ -97,16 +87,6 @@ class Ui_HomeWindow(object):
         self.gridLayout_2 = QGridLayout(self.TopRatedGamesTab)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.BoardgameList_2 = QListWidget(self.TopRatedGamesTab)
-        QListWidgetItem(self.BoardgameList_2)
-        QListWidgetItem(self.BoardgameList_2)
-        QListWidgetItem(self.BoardgameList_2)
-        QListWidgetItem(self.BoardgameList_2)
-        QListWidgetItem(self.BoardgameList_2)
-        QListWidgetItem(self.BoardgameList_2)
-        QListWidgetItem(self.BoardgameList_2)
-        QListWidgetItem(self.BoardgameList_2)
-        QListWidgetItem(self.BoardgameList_2)
-        QListWidgetItem(self.BoardgameList_2)
         self.BoardgameList_2.setObjectName(u"BoardgameList_2")
         self.BoardgameList_2.setFrameShape(QFrame.StyledPanel)
         self.BoardgameList_2.setFrameShadow(QFrame.Sunken)
@@ -158,7 +138,7 @@ class Ui_HomeWindow(object):
         self.GameImage.setObjectName(u"GameImage")
         self.GameImage.setMinimumSize(QSize(221, 157))
         self.GameImage.setMaximumSize(QSize(221, 157))
-        self.GameImage.setPixmap(QPixmap(u"ui/assets/placeholder.png"))
+        self.GameImage.setPixmap(QPixmap(u"assets/placeholder.png"))
         self.GameImage.setScaledContents(True)
 
         self.gridLayout_4.addWidget(self.GameImage, 2, 0, 1, 1)
@@ -249,7 +229,7 @@ class Ui_HomeWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.BoardgameLists.setCurrentIndex(0)
+        self.BoardgameLists.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -259,57 +239,7 @@ class Ui_HomeWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.DatabaseTitle.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:11pt; font-weight:700;\">Boardgames Database</span></p></body></html>", None))
         self.SearchButton.setText(QCoreApplication.translate("MainWindow", u"Search", None))
-
-        __sortingEnabled = self.BoardgameList.isSortingEnabled()
-        self.BoardgameList.setSortingEnabled(False)
-        ___qlistwidgetitem = self.BoardgameList.item(0)
-        ___qlistwidgetitem.setText(QCoreApplication.translate("MainWindow", u"Popular1", None));
-        ___qlistwidgetitem1 = self.BoardgameList.item(1)
-        ___qlistwidgetitem1.setText(QCoreApplication.translate("MainWindow", u"Popular2", None));
-        ___qlistwidgetitem2 = self.BoardgameList.item(2)
-        ___qlistwidgetitem2.setText(QCoreApplication.translate("MainWindow", u"Popular3", None));
-        ___qlistwidgetitem3 = self.BoardgameList.item(3)
-        ___qlistwidgetitem3.setText(QCoreApplication.translate("MainWindow", u"Popular4", None));
-        ___qlistwidgetitem4 = self.BoardgameList.item(4)
-        ___qlistwidgetitem4.setText(QCoreApplication.translate("MainWindow", u"Popular5", None));
-        ___qlistwidgetitem5 = self.BoardgameList.item(5)
-        ___qlistwidgetitem5.setText(QCoreApplication.translate("MainWindow", u"Popular6", None));
-        ___qlistwidgetitem6 = self.BoardgameList.item(6)
-        ___qlistwidgetitem6.setText(QCoreApplication.translate("MainWindow", u"Popular7", None));
-        ___qlistwidgetitem7 = self.BoardgameList.item(7)
-        ___qlistwidgetitem7.setText(QCoreApplication.translate("MainWindow", u"Popular8", None));
-        ___qlistwidgetitem8 = self.BoardgameList.item(8)
-        ___qlistwidgetitem8.setText(QCoreApplication.translate("MainWindow", u"Popular9", None));
-        ___qlistwidgetitem9 = self.BoardgameList.item(9)
-        ___qlistwidgetitem9.setText(QCoreApplication.translate("MainWindow", u"Popular10", None));
-        self.BoardgameList.setSortingEnabled(__sortingEnabled)
-
         self.BoardgameLists.setTabText(self.BoardgameLists.indexOf(self.PopularGamesTab), QCoreApplication.translate("MainWindow", u"Popular", None))
-
-        __sortingEnabled1 = self.BoardgameList_2.isSortingEnabled()
-        self.BoardgameList_2.setSortingEnabled(False)
-        ___qlistwidgetitem10 = self.BoardgameList_2.item(0)
-        ___qlistwidgetitem10.setText(QCoreApplication.translate("MainWindow", u"Top1", None));
-        ___qlistwidgetitem11 = self.BoardgameList_2.item(1)
-        ___qlistwidgetitem11.setText(QCoreApplication.translate("MainWindow", u"Top2", None));
-        ___qlistwidgetitem12 = self.BoardgameList_2.item(2)
-        ___qlistwidgetitem12.setText(QCoreApplication.translate("MainWindow", u"Top3", None));
-        ___qlistwidgetitem13 = self.BoardgameList_2.item(3)
-        ___qlistwidgetitem13.setText(QCoreApplication.translate("MainWindow", u"Top4", None));
-        ___qlistwidgetitem14 = self.BoardgameList_2.item(4)
-        ___qlistwidgetitem14.setText(QCoreApplication.translate("MainWindow", u"Top5", None));
-        ___qlistwidgetitem15 = self.BoardgameList_2.item(5)
-        ___qlistwidgetitem15.setText(QCoreApplication.translate("MainWindow", u"Top6", None));
-        ___qlistwidgetitem16 = self.BoardgameList_2.item(6)
-        ___qlistwidgetitem16.setText(QCoreApplication.translate("MainWindow", u"Top7", None));
-        ___qlistwidgetitem17 = self.BoardgameList_2.item(7)
-        ___qlistwidgetitem17.setText(QCoreApplication.translate("MainWindow", u"Top8", None));
-        ___qlistwidgetitem18 = self.BoardgameList_2.item(8)
-        ___qlistwidgetitem18.setText(QCoreApplication.translate("MainWindow", u"Top9", None));
-        ___qlistwidgetitem19 = self.BoardgameList_2.item(9)
-        ___qlistwidgetitem19.setText(QCoreApplication.translate("MainWindow", u"Top10", None));
-        self.BoardgameList_2.setSortingEnabled(__sortingEnabled1)
-
         self.BoardgameLists.setTabText(self.BoardgameLists.indexOf(self.TopRatedGamesTab), QCoreApplication.translate("MainWindow", u"Top Rated", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Next Game to Play:</p></body></html>", None))
         self.RecommendedGameName.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:12pt; font-weight:700;\">GAMENAME</span></p></body></html>", None))

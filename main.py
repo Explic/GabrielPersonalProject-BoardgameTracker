@@ -1,12 +1,31 @@
 import sys
 from ui.loginpage import Ui_LoginWindow
 from ui.homepage import Ui_HomeWindow
-from PySide6.QtWidgets import QApplication, QMainWindow
-from src.backend.user_manager import login, signup
+from PySide6.QtWidgets import QApplication, QMainWindow, QListWidgetItem
+from src.backend.user_manager import login, signup, get_wishlist
+from src.backend.recommend_system import recommend_games
+import requests
+from PySide6.QtGui import QPixmap
+from src.backend.search_system import search_games
 
 # Global variables
 MainWindow = None
 logged_in_user = None
+
+def load_image(image_url, suggested_id):
+    # Define image_path at the start
+    image_path = f"ui/assets/cachedimages/{suggested_id}.png"
+    try:
+        response = requests.get(image_url)
+        if response.status_code == 200:
+            with open(image_path, 'wb') as file:
+                file.write(response.content)
+        else:
+            print(f"Failed to download image: {response.status_code}")
+    except Exception as e:
+        print(f"Error downloading image: {e}")
+        image_path = "ui/assets/placeholder.png"  # Fallback to placeholder
+    return image_path
 
 def setup_login_page():
     global MainWindow
@@ -57,7 +76,35 @@ def setup_homepage():
     home_ui = Ui_HomeWindow()
     home_ui.setupUi(MainWindow)
     home_ui.WelcomeText.setText(u"<html><head/><body><p><span style=\" font-size:18pt;\">Welcome "+logged_in_user+"!</span></p></body></html>")
-
+    
+    # Suggested homepage game widget
+    if get_wishlist(logged_in_user) == None:
+        suggested = recommend_games(["174430"], 1)
+    else:
+        suggested = recommend_games(get_wishlist(logged_in_user), 1)
+        print(get_wishlist(logged_in_user))
+        print(suggested)
+    suggested_id = suggested[0]['BGGId']
+    home_ui.RecommendedGameName.setText(u"<html><head/><body><p><span style=\" font-size:12pt; font-weight:700;\">"+suggested[0]['Name']+"</span></p></body></html>")
+    # Extract tags where the value is 1
+    tags = [key.replace("Cat:", "") for key, value in suggested[0].items() if key.startswith("Cat:") and value == '1']
+    tags_text = ", ".join(tags) if tags else "No tags available"
+    home_ui.RecommendedGameTags.setText(tags_text)
+    image_url = suggested[0]['ImagePath']
+    image_path = load_image(image_url, suggested_id)
+    home_ui.GameImage.setPixmap(QPixmap(image_path))
+    
+    # Top 10 games homescreen
+    popular_games = search_games(sort_by="owners", limit=10)
+    for game in popular_games:
+        item = QListWidgetItem(game["Name"])
+        home_ui.BoardgameList.addItem(item)
+    rank_games = search_games(sort_by="rank", limit=10)
+    for game in rank_games:
+        item = QListWidgetItem(game["Name"])
+        home_ui.BoardgameList_2.addItem(item)
+    
+    # when button clicked
     def click_recommended_button():
         print("Recommended Button clicked")
 
@@ -80,6 +127,10 @@ def setup_homepage():
 
     def click_wishlist_button():
         print("Wishlist Button clicked")
+        if get_wishlist(logged_in_user) == None:
+            home_ui.WishlistButton.setText("No Wishlisted Games")
+        else:
+            print("Wishlist menu")
 
     # Connect buttons to func
     home_ui.RecommendedButton.clicked.connect(click_recommended_button)

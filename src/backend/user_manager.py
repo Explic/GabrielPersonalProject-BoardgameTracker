@@ -56,7 +56,7 @@ def get_wishlist(username):
     users = load_users()
     if username not in users:
         return None, "Username not found."
-    return users[username]["wishlist"], "Wishlist retrieved successfully."
+    return users[username]["wishlist"]
 
 def add_to_wishlist(username, game_id):
     users = load_users()
