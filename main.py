@@ -76,6 +76,11 @@ def setup_game_view(game_id):
     for tag in gameinfo["Tags"]:
         item = QListWidgetItem(tag)
         gv_ui.TagsList.addItem(item)
+    suggestions = recommend_games([game_id], 20)
+    for game in suggestions:
+        item = QListWidgetItem(game["Name"])
+        gv_ui.listSimilar.addItem(item)
+    
     
     # Button presses
     def click_wishlist_button():
@@ -92,8 +97,22 @@ def setup_game_view(game_id):
     def click_back_button():
         print("Returning To Home")
         setup_homepage()
+    
+    def click_suggested(index):
+        item_text = index.data()
+        print(f"Suggested game clicked: {item_text}")
+        # Example: Fetch game details based on the clicked game's name
+        game_details = search_games(query=item_text, limit=1)
+        if game_details:
+            game_id = game_details[0]["BGGId"]
+            print(game_id)
+            setup_game_view(game_id)
+            
+    
+    # Clickable setup
     gv_ui.wishlistButton.clicked.connect(click_wishlist_button)
     gv_ui.backButton.clicked.connect(click_back_button)
+    gv_ui.listSimilar.clicked.connect(click_suggested)
     
 
 def setup_login_page():
@@ -194,6 +213,7 @@ def setup_homepage():
     def click_recommended_view():
         print("Recommended View clicked")
         print(suggested_id)
+        setup_game_view(suggested_id)
 
     def click_search_button():
         print("Search Button clicked")

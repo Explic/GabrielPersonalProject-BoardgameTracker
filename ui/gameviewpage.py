@@ -10,6 +10,18 @@ from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFrame, QGridLay
     QMainWindow, QPushButton, QSizePolicy, QSpacerItem,
     QStatusBar, QTabWidget, QWidget)
 
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+    QFont, QFontDatabase, QGradient, QIcon,
+    QImage, QKeySequence, QLinearGradient, QPainter,
+    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFrame, QGridLayout,
+    QHBoxLayout, QLabel, QListWidget, QListWidgetItem,
+    QMainWindow, QPushButton, QSizePolicy, QSpacerItem,
+    QStatusBar, QTabWidget, QWidget)
+
 class Ui_GameWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
@@ -21,6 +33,10 @@ class Ui_GameWindow(object):
         self.centralwidget.setObjectName(u"centralwidget")
         self.gridLayout_8 = QGridLayout(self.centralwidget)
         self.gridLayout_8.setObjectName(u"gridLayout_8")
+        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout_8.addItem(self.horizontalSpacer_4, 1, 0, 1, 1)
+
         self.widget = QWidget(self.centralwidget)
         self.widget.setObjectName(u"widget")
         self.gridLayout = QGridLayout(self.widget)
@@ -213,46 +229,22 @@ class Ui_GameWindow(object):
         self.gridLayout_6.addWidget(self.TagsList, 5, 0, 1, 1)
 
         self.tabWidget.addTab(self.tab_2, "")
+        self.tab_3 = QWidget()
+        self.tab_3.setObjectName(u"tab_3")
+        self.gridLayout_7 = QGridLayout(self.tab_3)
+        self.gridLayout_7.setObjectName(u"gridLayout_7")
+        self.listSimilar = QListWidget(self.tab_3)
+        self.listSimilar.setObjectName(u"listSimilar")
+        self.listSimilar.setAlternatingRowColors(True)
+
+        self.gridLayout_7.addWidget(self.listSimilar, 0, 0, 1, 1)
+
+        self.tabWidget.addTab(self.tab_3, "")
 
         self.gridLayout.addWidget(self.tabWidget, 1, 0, 1, 1)
 
 
         self.gridLayout_8.addWidget(self.widget, 1, 1, 1, 1)
-
-        self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout.addItem(self.horizontalSpacer_2)
-
-        self.backButton = QPushButton(self.centralwidget)
-        self.backButton.setObjectName(u"backButton")
-        self.backButton.setMaximumSize(QSize(75, 24))
-
-        self.horizontalLayout.addWidget(self.backButton)
-
-
-        self.gridLayout_8.addLayout(self.horizontalLayout, 2, 2, 1, 1)
-
-        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout_8.addItem(self.horizontalSpacer_4, 1, 0, 1, 1)
-
-        self.wishlistButton = QPushButton(self.centralwidget)
-        self.wishlistButton.setObjectName(u"wishlistButton")
-        self.wishlistButton.setMinimumSize(QSize(75, 24))
-        self.wishlistButton.setMaximumSize(QSize(111, 24))
-
-        self.gridLayout_8.addWidget(self.wishlistButton, 2, 1, 1, 1)
-
-        self.GameName = QLabel(self.centralwidget)
-        self.GameName.setObjectName(u"GameName")
-
-        self.gridLayout_8.addWidget(self.GameName, 0, 1, 1, 1)
-
-        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout_8.addItem(self.horizontalSpacer_3, 1, 3, 1, 1)
 
         self.frame = QFrame(self.centralwidget)
         self.frame.setObjectName(u"frame")
@@ -282,6 +274,37 @@ class Ui_GameWindow(object):
 
 
         self.gridLayout_8.addWidget(self.frame, 1, 2, 1, 1)
+
+        self.wishlistButton = QPushButton(self.centralwidget)
+        self.wishlistButton.setObjectName(u"wishlistButton")
+        self.wishlistButton.setMinimumSize(QSize(75, 24))
+        self.wishlistButton.setMaximumSize(QSize(111, 24))
+
+        self.gridLayout_8.addWidget(self.wishlistButton, 2, 1, 1, 1)
+
+        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout_8.addItem(self.horizontalSpacer_3, 1, 3, 1, 1)
+
+        self.GameName = QLabel(self.centralwidget)
+        self.GameName.setObjectName(u"GameName")
+
+        self.gridLayout_8.addWidget(self.GameName, 0, 1, 1, 1)
+
+        self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout.addItem(self.horizontalSpacer_2)
+
+        self.backButton = QPushButton(self.centralwidget)
+        self.backButton.setObjectName(u"backButton")
+        self.backButton.setMaximumSize(QSize(75, 24))
+
+        self.horizontalLayout.addWidget(self.backButton)
+
+
+        self.gridLayout_8.addLayout(self.horizontalLayout, 2, 2, 1, 1)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QStatusBar(MainWindow)
@@ -371,15 +394,7 @@ class Ui_GameWindow(object):
 #endif // QT_CONFIG(statustip)
         self.labelID.setText(QCoreApplication.translate("MainWindow", u"ID PLACEHOLDER", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", u"Advanced Data", None))
-#if QT_CONFIG(statustip)
-        self.backButton.setStatusTip(QCoreApplication.translate("MainWindow", u"Back to homescreen", None))
-#endif // QT_CONFIG(statustip)
-        self.backButton.setText(QCoreApplication.translate("MainWindow", u"Back", None))
-        self.wishlistButton.setText(QCoreApplication.translate("MainWindow", u"Add to list", None))
-#if QT_CONFIG(statustip)
-        self.GameName.setStatusTip(QCoreApplication.translate("MainWindow", u"Board Game Name", None))
-#endif // QT_CONFIG(statustip)
-        self.GameName.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:16pt; font-weight:700;\">GAMENAME</span></p></body></html>", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), QCoreApplication.translate("MainWindow", u"Similar Games", None))
 #if QT_CONFIG(statustip)
         self.labelArtist.setStatusTip(QCoreApplication.translate("MainWindow", u"Artist Credits", None))
 #endif // QT_CONFIG(statustip)
@@ -388,5 +403,13 @@ class Ui_GameWindow(object):
         self.GameImage.setStatusTip(QCoreApplication.translate("MainWindow", u"Game Image", None))
 #endif // QT_CONFIG(statustip)
         self.GameImage.setText("")
+        self.wishlistButton.setText(QCoreApplication.translate("MainWindow", u"Add to list", None))
+#if QT_CONFIG(statustip)
+        self.GameName.setStatusTip(QCoreApplication.translate("MainWindow", u"Board Game Name", None))
+#endif // QT_CONFIG(statustip)
+        self.GameName.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:16pt; font-weight:700;\">GAMENAME</span></p></body></html>", None))
+#if QT_CONFIG(statustip)
+        self.backButton.setStatusTip(QCoreApplication.translate("MainWindow", u"Back to homescreen", None))
+#endif // QT_CONFIG(statustip)
+        self.backButton.setText(QCoreApplication.translate("MainWindow", u"Back", None))
     # retranslateUi
-
