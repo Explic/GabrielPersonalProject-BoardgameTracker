@@ -119,11 +119,6 @@ class Ui_HomeWindow(object):
         self.gridLayout_5.setContentsMargins(0, -1, -1, -1)
         self.gridLayout_4 = QGridLayout()
         self.gridLayout_4.setObjectName(u"gridLayout_4")
-        self.label = QLabel(self.widget)
-        self.label.setObjectName(u"label")
-
-        self.gridLayout_4.addWidget(self.label, 0, 0, 1, 1)
-
         self.RecommendedGameName = QLabel(self.widget)
         self.RecommendedGameName.setObjectName(u"RecommendedGameName")
 
@@ -132,8 +127,15 @@ class Ui_HomeWindow(object):
         self.RecommendedGameTags = QLabel(self.widget)
         self.RecommendedGameTags.setObjectName(u"RecommendedGameTags")
 
-        self.gridLayout_4.addWidget(self.RecommendedGameTags, 3, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.RecommendedGameTags, 4, 0, 1, 1)
 
+        self.label = QLabel(self.widget)
+        self.label.setObjectName(u"label")
+
+        self.gridLayout_4.addWidget(self.label, 0, 0, 1, 1)
+
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.GameImage = QLabel(self.widget)
         self.GameImage.setObjectName(u"GameImage")
         self.GameImage.setMinimumSize(QSize(221, 157))
@@ -141,7 +143,10 @@ class Ui_HomeWindow(object):
         self.GameImage.setPixmap(QPixmap(u"assets/placeholder.png"))
         self.GameImage.setScaledContents(True)
 
-        self.gridLayout_4.addWidget(self.GameImage, 2, 0, 1, 1)
+        self.horizontalLayout_2.addWidget(self.GameImage)
+
+
+        self.gridLayout_4.addLayout(self.horizontalLayout_2, 2, 0, 1, 1)
 
 
         self.gridLayout_5.addLayout(self.gridLayout_4, 0, 0, 1, 1)
@@ -241,9 +246,9 @@ class Ui_HomeWindow(object):
         self.SearchButton.setText(QCoreApplication.translate("MainWindow", u"Search", None))
         self.BoardgameLists.setTabText(self.BoardgameLists.indexOf(self.PopularGamesTab), QCoreApplication.translate("MainWindow", u"Popular", None))
         self.BoardgameLists.setTabText(self.BoardgameLists.indexOf(self.TopRatedGamesTab), QCoreApplication.translate("MainWindow", u"Top Rated", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Next Game to Play:</p></body></html>", None))
         self.RecommendedGameName.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:12pt; font-weight:700;\">GAMENAME</span></p></body></html>", None))
         self.RecommendedGameTags.setText(QCoreApplication.translate("MainWindow", u"TAGS", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Next Game to Play:</p></body></html>", None))
         self.GameImage.setText("")
         self.RecommendedView.setText(QCoreApplication.translate("MainWindow", u"View Game", None))
         self.RecommendedButton.setText(QCoreApplication.translate("MainWindow", u"Recommendations", None))
@@ -253,3 +258,4 @@ class Ui_HomeWindow(object):
         self.ExitButton.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
         self.WishlistButton.setText(QCoreApplication.translate("MainWindow", u"My Wishlist", None))
     # retranslateUi
+

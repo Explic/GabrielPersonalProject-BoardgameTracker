@@ -83,12 +83,42 @@ def get_game(bgg_id, returned_fields='Name'):
         if game.get("BGGId") == bgg_id:
             returned = {}
             name = game.get("Name", "Unknown")
-            rank = game.get("Rank:boardgame", "N/A")
+            rank = game.get("Rank:boardgame", "Unknown Name")
+            year = game.get("YearPublished", "Unknown")
+            minplayer = game.get("MinPlayers", "Unknown")
+            maxplayer = game.get("MaxPlayers", "Unknown")
+            playtime = game.get("MfgPlaytime", "Unknown")
+            owners = game.get("NumOwned", "Unknown")
+            rating = round(float(game.get("AvgRating", "0")), 1) if game.get("AvgRating") else "Unknown" # (Rounded to 1 dp)      
+            image = game.get("ImagePath", "Unknown")
+            artistslist = game.get("Artists", ["Unknown"])
+            artists = ", ".join(artistslist)
+            tags = game.get("Tags", "Unknown")
+
 
             if 'name' in returned_fields.lower():
                 returned["Name"] = name
             if 'rank' in returned_fields.lower():
                 returned["Rank"] = rank
+            if 'year' in returned_fields.lower():
+                returned["Year"] = year
+            if 'playercount' in returned_fields.lower():
+                returned["MinPlayer"] = minplayer
+                returned["MaxPlayer"] = maxplayer
+            if 'playtime' in returned_fields.lower():
+                returned["Playtime"] = playtime
+            if 'owners' in returned_fields.lower():
+                returned["Owners"] = owners
+            if 'rating' in returned_fields.lower():
+                returned["Rating"] = rating
+            if 'image' in returned_fields.lower():
+                returned["Image"] = image
+            if 'artist' in returned_fields.lower():
+                returned["Artists"] = artists
+            if 'tags' in returned_fields.lower():
+                returned["Tags"] = tags
+            if 'full' in returned_fields.lower():
+                return game
             return returned
 
 # --- Testing the system --- 

@@ -115,6 +115,12 @@
                   <property name="midLineWidth">
                    <number>0</number>
                   </property>
+                  <property name="verticalScrollBarPolicy">
+                   <enum>Qt::ScrollBarAlwaysOff</enum>
+                  </property>
+                  <property name="sizeAdjustPolicy">
+                   <enum>QAbstractScrollArea::AdjustIgnored</enum>
+                  </property>
                   <property name="tabKeyNavigation">
                    <bool>false</bool>
                   </property>
@@ -139,56 +145,6 @@
                   <property name="sortingEnabled">
                    <bool>false</bool>
                   </property>
-                  <item>
-                   <property name="text">
-                    <string>Popular1</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Popular2</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Popular3</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Popular4</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Popular5</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Popular6</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Popular7</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Popular8</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Popular9</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Popular10</string>
-                   </property>
-                  </item>
                  </widget>
                 </item>
                </layout>
@@ -233,56 +189,6 @@
                   <property name="sortingEnabled">
                    <bool>false</bool>
                   </property>
-                  <item>
-                   <property name="text">
-                    <string>Top1</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Top2</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Top3</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Top4</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Top5</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Top6</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Top7</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Top8</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Top9</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Top10</string>
-                   </property>
-                  </item>
                  </widget>
                 </item>
                </layout>
@@ -302,13 +208,6 @@
           </property>
           <item row="0" column="0">
            <layout class="QGridLayout" name="gridLayout_4">
-            <item row="0" column="0">
-             <widget class="QLabel" name="label">
-              <property name="text">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Next Game to Play:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-             </widget>
-            </item>
             <item row="1" column="0">
              <widget class="QLabel" name="RecommendedGameName">
               <property name="text">
@@ -316,37 +215,48 @@
               </property>
              </widget>
             </item>
-            <item row="3" column="0">
+            <item row="4" column="0">
              <widget class="QLabel" name="RecommendedGameTags">
               <property name="text">
                <string>TAGS</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="GameImage">
-              <property name="minimumSize">
-               <size>
-                <width>221</width>
-                <height>157</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>221</width>
-                <height>157</height>
-               </size>
-              </property>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label">
               <property name="text">
-               <string/>
-              </property>
-              <property name="pixmap">
-               <pixmap>assets/placeholder.png</pixmap>
-              </property>
-              <property name="scaledContents">
-               <bool>true</bool>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Next Game to Play:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
              </widget>
+            </item>
+            <item row="2" column="0">
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <item>
+               <widget class="QLabel" name="GameImage">
+                <property name="minimumSize">
+                 <size>
+                  <width>221</width>
+                  <height>157</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>221</width>
+                  <height>157</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="pixmap">
+                 <pixmap>assets/placeholder.png</pixmap>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
            </layout>
           </item>
