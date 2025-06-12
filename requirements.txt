@@ -1,2 +1,4 @@
-customtkinter
+PyQt6
+PySide6
 cutie
+requests
