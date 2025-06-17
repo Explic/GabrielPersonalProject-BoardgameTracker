@@ -2,6 +2,7 @@ import sys
 from ui.loginpage import Ui_LoginWindow
 from ui.homepage import Ui_HomeWindow
 from ui.gameviewpage import Ui_GameWindow
+from ui.recommendpage import Ui_RecommendWindow
 from PySide6.QtWidgets import QApplication, QMainWindow, QListWidgetItem, QAbstractScrollArea
 from src.backend.user_manager import login, signup, get_wishlist, add_to_wishlist, remove_from_wishlist
 from src.backend.recommend_system import recommend_games
@@ -29,8 +30,80 @@ def load_image(image_url, suggested_id):
         image_path = "ui/assets/placeholder.png"  # Fallback to placeholder
     return image_path
 
+def setup_recommended_view():
+    global MainWindow, logged_in_user
+    MainWindow.setCentralWidget(None)
+    rc_ui = Ui_RecommendWindow()
+    rc_ui.setupUi(MainWindow)
+    recommendations = recommend_games(get_wishlist(logged_in_user), 50)
+    print(recommendations)
+    # Idk how to make this more efficent
+    name1, name2, name3, name4, name5 = [game['Name'] for game in recommendations[:5]]
+    image1, image2, image3, image4, image5 = [game['ImagePath'] for game in recommendations[:5]]
+    rank1, rank2 , rank3, rank4, rank5 = [game['Rank:boardgame'] for game in recommendations[:5]]
+    id1, id2 , id3, id4, id5 = [game['BGGId'] for game in recommendations[:5]]
+    tag1 = [key.replace("Cat:", "") for key, value in recommendations[0].items() if key.startswith("Cat:") and value == '1']
+    tag2 = [key.replace("Cat:", "") for key, value in recommendations[1].items() if key.startswith("Cat:") and value == '1']
+    tag3 = [key.replace("Cat:", "") for key, value in recommendations[2].items() if key.startswith("Cat:") and value == '1']
+    tag4 = [key.replace("Cat:", "") for key, value in recommendations[3].items() if key.startswith("Cat:") and value == '1']
+    tag5 = [key.replace("Cat:", "") for key, value in recommendations[4].items() if key.startswith("Cat:") and value == '1']
+    # There has to be a better way of doing this haha
+    rc_ui.labelName_1.setText(u"<html><head/><body><p><span style=\" font-weight:700;\">"+name1+"</span></p></body></html>")
+    rc_ui.labelImage_1.setPixmap(QPixmap(load_image(image1, id1)))
+    rc_ui.labelRank_1.setText("Rank: "+rank1)
+    rc_ui.labelTags_1.setText(", ".join(tag1))
+    
+    rc_ui.labelName_6.setText(u"<html><head/><body><p><span style=\" font-weight:700;\">"+name2+"</span></p></body></html>")
+    rc_ui.labelImage_6.setPixmap(QPixmap(load_image(image2, id2)))
+    rc_ui.labelRank_6.setText("Rank: "+rank2)
+    rc_ui.labelTags_6.setText(", ".join(tag2))
 
+    rc_ui.labelName_3.setText(u"<html><head/><body><p><span style=\" font-weight:700;\">"+name3+"</span></p></body></html>")
+    rc_ui.labelImage_3.setPixmap(QPixmap(load_image(image3, id3)))
+    rc_ui.labelRank_3.setText("Rank: "+rank3)
+    rc_ui.labelTags_3.setText(", ".join(tag3))
 
+    rc_ui.labelName_4.setText(u"<html><head/><body><p><span style=\" font-weight:700;\">"+name4+"</span></p></body></html>")
+    rc_ui.labelImage_4.setPixmap(QPixmap(load_image(image4, id4)))
+    rc_ui.labelRank_4.setText("Rank: "+rank4)
+    rc_ui.labelTags_4.setText(", ".join(tag4))
+
+    rc_ui.labelName_5.setText(u"<html><head/><body><p><span style=\" font-weight:700;\">"+name5+"</span></p></body></html>")
+    rc_ui.labelImage_5.setPixmap(QPixmap(load_image(image5, id5)))
+    rc_ui.labelRank_5.setText("Rank: "+rank5)
+    rc_ui.labelTags_5.setText(", ".join(tag5))
+    
+    # List
+    for game in recommendations[5:]:
+        item = QListWidgetItem(game["Name"])
+        rc_ui.listRecommended.addItem(item)
+    
+    def game_clicked(id):
+        print("game_clicked")
+        setup_game_view(id)
+        
+    def back_clicked():
+        print("back_clicked")
+        setup_homepage()   
+        
+    def click_list():
+        print(f"game clicked: {item.text()}")
+        game_details = search_games(query=item.text(), limit=1)
+        if game_details:
+            game_id = game_details[0]["BGGId"]
+            print(game_id)
+            setup_game_view(game_id)
+    
+    # Buttons
+    rc_ui.button_1.clicked.connect(lambda: game_clicked(id1))
+    rc_ui.button_2.clicked.connect(lambda: game_clicked(id2))
+    rc_ui.button_3.clicked.connect(lambda: game_clicked(id3))
+    rc_ui.button_4.clicked.connect(lambda: game_clicked(id4))
+    rc_ui.button_5.clicked.connect(lambda: game_clicked(id5))
+    rc_ui.pushButton.clicked.connect(back_clicked)
+    rc_ui.listRecommended.clicked.connect(click_list)
+    
+        
 def setup_game_view(game_id):
     global MainWindow, logged_in_user
     MainWindow.setCentralWidget(None)
@@ -208,6 +281,7 @@ def setup_homepage():
             home_ui.RecommendedButton.setText("Need listed games")
         else:
             print("Recommended view")
+            setup_recommended_view()
             
             
     def click_recommended_view():
