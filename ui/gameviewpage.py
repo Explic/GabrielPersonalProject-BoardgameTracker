@@ -10,24 +10,13 @@ from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFrame, QGridLay
     QMainWindow, QPushButton, QSizePolicy, QSpacerItem,
     QStatusBar, QTabWidget, QWidget)
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFrame, QGridLayout,
-    QHBoxLayout, QLabel, QListWidget, QListWidgetItem,
-    QMainWindow, QPushButton, QSizePolicy, QSpacerItem,
-    QStatusBar, QTabWidget, QWidget)
-
 class Ui_GameWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(546, 343)
-        MainWindow.setMaximumSize(QSize(828, 425))
+        MainWindow.setMinimumSize(QSize(546, 343))
+        MainWindow.setMaximumSize(QSize(546, 343))
         MainWindow.setAutoFillBackground(False)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -413,3 +402,4 @@ class Ui_GameWindow(object):
 #endif // QT_CONFIG(statustip)
         self.backButton.setText(QCoreApplication.translate("MainWindow", u"Back", None))
     # retranslateUi
+

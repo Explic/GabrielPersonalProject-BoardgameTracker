@@ -5,16 +5,18 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QHBoxLayout,
-    QLabel, QLayout, QListView, QListWidget,
-    QListWidgetItem, QMainWindow, QPushButton, QSizePolicy,
-    QSpacerItem, QStatusBar, QTabWidget, QWidget)
+from PySide6.QtWidgets import (QAbstractScrollArea, QApplication, QFrame, QGridLayout,
+    QHBoxLayout, QLabel, QLayout, QListView,
+    QListWidget, QListWidgetItem, QMainWindow, QPushButton,
+    QSizePolicy, QSpacerItem, QStatusBar, QTabWidget,
+    QWidget)
 
 class Ui_HomeWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(509, 410)
+        MainWindow.resize(511, 410)
+        MainWindow.setMinimumSize(QSize(511, 410))
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.gridLayout_9 = QGridLayout(self.centralwidget)
@@ -70,6 +72,8 @@ class Ui_HomeWindow(object):
         self.BoardgameList.setFrameShape(QFrame.StyledPanel)
         self.BoardgameList.setFrameShadow(QFrame.Sunken)
         self.BoardgameList.setMidLineWidth(0)
+        self.BoardgameList.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.BoardgameList.setSizeAdjustPolicy(QAbstractScrollArea.AdjustIgnored)
         self.BoardgameList.setTabKeyNavigation(False)
         self.BoardgameList.setProperty("isWrapping", False)
         self.BoardgameList.setLayoutMode(QListView.SinglePass)
@@ -234,7 +238,7 @@ class Ui_HomeWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.BoardgameLists.setCurrentIndex(1)
+        self.BoardgameLists.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -258,4 +262,23 @@ class Ui_HomeWindow(object):
         self.ExitButton.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
         self.WishlistButton.setText(QCoreApplication.translate("MainWindow", u"My Wishlist", None))
     # retranslateUi
+
+    def retranslateUi(self, MainWindow):
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.DatabaseTitle.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:11pt; font-weight:700;\">Boardgames Database</span></p></body></html>", None))
+        self.SearchButton.setText(QCoreApplication.translate("MainWindow", u"Search", None))
+        self.BoardgameLists.setTabText(self.BoardgameLists.indexOf(self.PopularGamesTab), QCoreApplication.translate("MainWindow", u"Popular", None))
+        self.BoardgameLists.setTabText(self.BoardgameLists.indexOf(self.TopRatedGamesTab), QCoreApplication.translate("MainWindow", u"Top Rated", None))
+        self.RecommendedGameName.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:12pt; font-weight:700;\">GAMENAME</span></p></body></html>", None))
+        self.RecommendedGameTags.setText(QCoreApplication.translate("MainWindow", u"TAGS", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Next Game to Play:</p></body></html>", None))
+        self.GameImage.setText("")
+        self.RecommendedView.setText(QCoreApplication.translate("MainWindow", u"View Game", None))
+        self.RecommendedButton.setText(QCoreApplication.translate("MainWindow", u"Recommendations", None))
+        self.SettingsButton.setText(QCoreApplication.translate("MainWindow", u"Settings", None))
+        self.WelcomeText.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:18pt;\">Welcome [USERNAME]!</span></p></body></html>", None))
+        self.LogoutButton.setText(QCoreApplication.translate("MainWindow", u"Logout", None))
+        self.ExitButton.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
+        self.WishlistButton.setText(QCoreApplication.translate("MainWindow", u"My Wishlist", None))
+
 

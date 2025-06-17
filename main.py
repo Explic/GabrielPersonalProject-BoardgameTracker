@@ -30,6 +30,10 @@ def load_image(image_url, suggested_id):
         image_path = "ui/assets/placeholder.png"  # Fallback to placeholder
     return image_path
 
+def setup_settings_view():
+    global MainWindow, logged_in_user
+    MainWindow.setCentralWidget(None)
+
 def setup_recommended_view():
     global MainWindow, logged_in_user
     MainWindow.setCentralWidget(None)
@@ -103,7 +107,6 @@ def setup_recommended_view():
     rc_ui.pushButton.clicked.connect(back_clicked)
     rc_ui.listRecommended.clicked.connect(click_list)
     
-        
 def setup_game_view(game_id):
     global MainWindow, logged_in_user
     MainWindow.setCentralWidget(None)
@@ -320,11 +323,11 @@ def setup_homepage():
             setup_game_view(game_id)
             
 
-    # Connect the itemClicked signal to the handler
+    # Buttons for list
     home_ui.BoardgameList_2.itemClicked.connect(on_top_game_clicked)
     home_ui.BoardgameList.itemClicked.connect(on_top_game_clicked)
 
-    # Connect buttons to func
+    # Connect buttons to functions
     home_ui.RecommendedButton.clicked.connect(click_recommended_button)
     home_ui.RecommendedView.clicked.connect(click_recommended_view)
     home_ui.SearchButton.clicked.connect(click_search_button)
