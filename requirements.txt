@@ -2,3 +2,4 @@ PyQt6
 PySide6
 cutie
 tqdm
+requests

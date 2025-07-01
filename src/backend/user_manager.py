@@ -88,6 +88,30 @@ def remove_user(username):
     save_users(users)
     return True, "User removed successfully."
 
+def setting_set(username, random, priority):
+    users = load_users()
+    if username not in users:
+        return False, "Username not found."
+    users[username]["random"] = random
+    users[username]["priority"] = priority
+    save_users(users)
+    return True, "Settings updated successfully."
+
+def setting_get(username):
+    users = load_users()
+    if username not in users:
+        return None, None
+    # Set defaults if missing
+    if "random" not in users[username]:
+        users[username]["random"] = 0
+    if "priority" not in users[username]:
+        users[username]["priority"] = 5
+    save_users(users)
+    users = load_users()
+    random = users[username]["random"]
+    priority = users[username]["priority"]
+    return random, priority
+
 # --- Testing user manager ---
 if __name__ == "__main__":
     print("Testing User Management System:")

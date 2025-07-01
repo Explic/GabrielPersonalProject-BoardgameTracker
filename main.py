@@ -3,8 +3,9 @@ from ui.loginpage import Ui_LoginWindow
 from ui.homepage import Ui_HomeWindow
 from ui.gameviewpage import Ui_GameWindow
 from ui.recommendpage import Ui_RecommendWindow
+from ui.settingspage import Ui_SettingsWindow
 from PySide6.QtWidgets import QApplication, QMainWindow, QListWidgetItem, QAbstractScrollArea
-from src.backend.user_manager import login, signup, get_wishlist, add_to_wishlist, remove_from_wishlist
+from src.backend.user_manager import *
 from src.backend.recommend_system import recommend_games
 import requests
 from PySide6.QtGui import QPixmap
@@ -33,6 +34,50 @@ def load_image(image_url, suggested_id):
 def setup_settings_view():
     global MainWindow, logged_in_user
     MainWindow.setCentralWidget(None)
+    st_ui = Ui_SettingsWindow()
+    st_ui.setupUi(MainWindow)
+    deletestat = 0
+    st_ui.buttonLogout.setText("Back") # Changed the logout button to a back button
+    currentRandom, currentPriority = setting_get(logged_in_user)
+    st_ui.sliderPriority.setValue(int(currentPriority))
+    st_ui.sliderRandom.setValue(int(currentRandom))
+    
+    # Buttons
+    def delete_clicked():
+        if deletestat == 0:
+            deletestat = 1
+            st_ui.buttonDelete.setText("Are you sure?") 
+        if deletestat == 1:
+            remove_user(logged_in_user)
+            setup_login_page()
+    def logout_clicked(): # BackButton
+        print("Logout Clicked")
+        currentRandom = st_ui.spinRandom.value()
+        currentPriority = st_ui.spinPriority.value()
+        print(currentRandom, currentPriority)
+        setting_set(logged_in_user, currentRandom, currentPriority)
+        setup_homepage()
+        
+    def nick_clicked():
+        pass
+    def passE_clicked():
+        pass
+    def passV_clicked():
+        pass
+    def reset_clicked():
+        pass
+    def user_clicked():
+        pass
+    
+    st_ui.buttonDelete.clicked.connect(delete_clicked)
+    st_ui.buttonLogout.clicked.connect(logout_clicked)
+    st_ui.buttonNickEdit.clicked.connect(nick_clicked)
+    st_ui.buttonPassEdit.clicked.connect(passE_clicked)
+    st_ui.buttonPassView.clicked.connect(passV_clicked)
+    st_ui.buttonReset.clicked.connect(reset_clicked)
+    st_ui.buttonUserEdit.clicked.connect(user_clicked)
+    
+    
 
 def setup_recommended_view():
     global MainWindow, logged_in_user
@@ -40,7 +85,6 @@ def setup_recommended_view():
     rc_ui = Ui_RecommendWindow()
     rc_ui.setupUi(MainWindow)
     recommendations = recommend_games(get_wishlist(logged_in_user), 50)
-    print(recommendations)
     # Idk how to make this more efficent
     name1, name2, name3, name4, name5 = [game['Name'] for game in recommendations[:5]]
     image1, image2, image3, image4, image5 = [game['ImagePath'] for game in recommendations[:5]]
@@ -218,7 +262,7 @@ def setup_login_page():
     def click_button_login():
         global logged_in_user
         inputusername = login_ui.UsernameInput.text()
-        inputpassword = login_ui.PasswordInput.text()
+        inputpassword = login_ui.PasswordInput.text()   
         outcome = login(inputusername, inputpassword)
         if outcome == (False, "Username not found."):
             login_notify("Username not found")
@@ -244,13 +288,13 @@ def setup_homepage():
     # Suggested homepage game widget
     if get_wishlist(logged_in_user) == []:
         suggested = recommend_games(["291457"], 1)
-        print(suggested)
+        #print(suggested)
         suggested_id = suggested[0]['BGGId']
         nowishlist = True
     else:
         suggested = recommend_games(get_wishlist(logged_in_user), 1)
         print(get_wishlist(logged_in_user))
-        print(suggested)
+        #print(suggested)
         suggested_id = suggested[0]['BGGId']
         nowishlist = False
     home_ui.RecommendedGameName.setText(u"<html><head/><body><p><span style=\" font-size:12pt; font-weight:700;\">"+suggested[0]['Name']+"</span></p></body></html>")
@@ -297,6 +341,7 @@ def setup_homepage():
 
     def click_settings_button():
         print("Settings Button clicked")
+        setup_settings_view()
 
     def click_logout_button():
         print("Logout Button clicked")
@@ -340,5 +385,5 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     MainWindow = QMainWindow()
     setup_login_page()
-    MainWindow.show()
+    MainWindow.show() 
     sys.exit(app.exec())

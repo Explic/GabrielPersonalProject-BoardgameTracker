@@ -29,6 +29,7 @@ Boardgame Tracker is a Python-based application designed to help users explore, 
    python main.py
    ```
 2. Sign up and login.
+Note: Everything is stored locally (User Database, Wishlists, etc)
 
 ## Project Structure
 - **`main.py`**: Entry point of the application.
