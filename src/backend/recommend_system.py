@@ -54,11 +54,11 @@ def recommend_games(input_bgg_ids, num_recommendations=20):
                 
             #Giving popular games an advantage
             if int(game.get("NumOwned", 0)) > 1000:
-                score += 1
+                score += 0.5
             
             # Games with a high bgg rank are more likely to be recommended
             if int(game.get("Rank:boardgame", 999999)) < 100:
-                score += 1
+                score += 0.5
             
             # Add 2 points for each matching category (Cat) tag
             input_cats = {i for i, value in input_game.items() if i.startswith("Cat:") and value == "1"}
@@ -78,7 +78,7 @@ def recommend_games(input_bgg_ids, num_recommendations=20):
 
 if __name__ == "__main__":
     # Example usage / testing
-    example_bgg_ids = ["174430"]  # Gloomhaven
+    example_bgg_ids = ["174430", "161936"]  # Gloomhaven + pand
 
     recommendations = recommend_games(example_bgg_ids)
     print("Recommended Games for Gloomhaven:")

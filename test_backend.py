@@ -101,8 +101,9 @@ def showcase_search():
 
         results = search_games(query=query, filters=filters, category=categories)
         print("Search Results:")
-        for game in results:
-            print(game.get("Name") + " - ID:" + game.get("BGGId"))
+        if results != None:
+            for game in results:
+                print(game.get("Name") + " - ID:" + game.get("BGGId"))
         if not cutie.prompt_yes_or_no("Do you want to try again?"):
             break
         

@@ -1,6 +1,12 @@
 {
-    "testuser": {
-        "password": "testpassword",
+    "newuser": {
+        "password": "1234567",
         "wishlist": []
+    },
+    "testuser123": {
+        "password": "1234567",
+        "wishlist": [],
+        "random": 0,
+        "priority": 5
     }
 }
