@@ -1,9 +1,11 @@
-import sys
+import sys 
 from ui.loginpage import Ui_LoginWindow
 from ui.homepage import Ui_HomeWindow
 from ui.gameviewpage import Ui_GameWindow
 from ui.recommendpage import Ui_RecommendWindow
 from ui.settingspage import Ui_SettingsWindow
+from ui.resultspage import Ui_ResultsWindow
+from ui.searchpage import  Ui_SearchWindow
 from PySide6.QtWidgets import QApplication, QMainWindow, QListWidgetItem, QAbstractScrollArea
 from src.backend.user_manager import *
 from src.backend.recommend_system import recommend_games
@@ -15,6 +17,8 @@ from PySide6.QtCore import Qt
 # Global variables
 MainWindow = None
 logged_in_user = None
+nickname = None
+currentversion = "1.0"
 
 def load_image(image_url, suggested_id):
     # Define image_path at the start
@@ -31,25 +35,165 @@ def load_image(image_url, suggested_id):
         image_path = "ui/assets/placeholder.png"  # Fallback to placeholder
     return image_path
 
+def results_window(results):
+    global MainWindow
+    rs_ui = Ui_ResultsWindow()
+    rs_ui.setupUi(MainWindow)
+    # Display up to 5 results safely
+    label_names = [
+        ("labelName_1", "labelImage_1", "labelRank_1", "labelTags_1"),
+        ("labelName_6", "labelImage_6", "labelRank_6", "labelTags_6"),
+        ("labelName_3", "labelImage_3", "labelRank_3", "labelTags_3"),
+        ("labelName_4", "labelImage_4", "labelRank_4", "labelTags_4"),
+        ("labelName_5", "labelImage_5", "labelRank_5", "labelTags_5"),
+    ]
+    for i, game in enumerate(results[:5]):
+        name = game['Name']
+        image = game['ImagePath']
+        rank = game['Rank:boardgame']
+        gid = game['BGGId']
+        tags = [key.replace("Cat:", "") for key, value in game.items() if key.startswith("Cat:") and value == '1']
+        labelName, labelImage, labelRank, labelTags = label_names[i]
+        getattr(rs_ui, labelName).setText(u"<html><head/><body><p><span style=\" font-weight:700;\">"+name+"</span></p></body></html>")
+        getattr(rs_ui, labelImage).setPixmap(QPixmap(load_image(image, gid)))
+        getattr(rs_ui, labelRank).setText("Rank: "+rank)
+        getattr(rs_ui, labelTags).setText(", ".join(tags))
+    ids = [game['BGGId'] for game in results[:5]]
+        
+    if len(results)>5:
+        for game in results[5:]:
+            item = QListWidgetItem(game["Name"])
+            rs_ui.listResults.addItem(item)  
+            
+    def exit_clicked():
+        setup_homepage()
+    def search_clicked():
+        setup_search_view()
+    def game_clicked(id):
+        print("game_clicked")
+        setup_game_view(id)
+    def list_clicked(item):
+        print(f"game clicked: {item.text()}")
+        game_details = search_games(query=item.text(), limit=1)
+        if game_details:
+            game_id = game_details[0]["BGGId"]
+            print(game_id)
+            setup_game_view(game_id)
+        
+    rs_ui.pushButton_2.clicked.connect(exit_clicked)
+    rs_ui.pushButton.clicked.connect(search_clicked)
+    rs_ui.listResults.itemClicked.connect(list_clicked)
+    if len(ids) > 0:
+        rs_ui.button_1.clicked.connect(lambda: game_clicked(ids[0]))
+    if len(ids) > 1:
+        rs_ui.button_2.clicked.connect(lambda: game_clicked(ids[1]))
+    if len(ids) > 2:
+        rs_ui.button_3.clicked.connect(lambda: game_clicked(ids[2]))
+    if len(ids) > 3:
+        rs_ui.button_4.clicked.connect(lambda: game_clicked(ids[3]))
+    if len(ids) > 4:
+        rs_ui.button_5.clicked.connect(lambda: game_clicked(ids[4]))
+
+def setup_search_view():
+    global MainWindow
+    MainWindow.setCentralWidget(None)
+    sc_ui = Ui_SearchWindow()
+    sc_ui.setupUi(MainWindow)
+    
+    def exit_clicked():
+        print("Exit Clicked")
+        setup_homepage()
+        
+    def search_clicked():
+        print("search clicked")
+        # print for testing
+        cats = []
+        filters = {}
+        search = None
+        print(sc_ui.SearchBar.text())
+        print(sc_ui.minSpin.value())
+        print(sc_ui.maxSpin.value())
+        print(sc_ui.playerSpin.value())
+        print(sc_ui.comboSort.currentText())
+        print(sc_ui.thematicBox.isChecked())
+        # get input
+        search_text = sc_ui.SearchBar.text()
+        if search_text == "":
+            search_text == None
+        min = sc_ui.minSpin.value()
+        max = sc_ui.maxSpin.value()
+        player = sc_ui.playerSpin.value()
+        sortBy = sc_ui.comboSort.currentText()
+        if sc_ui.SearchBar.text() != None:
+            search = sc_ui.SearchBar.text()
+        if max == 0:
+            max = 999999999
+        if player == 0:
+            filters = {"min_playtime": min, "max_playtime": max}
+        else:
+            filters = {"min_playtime": min, "max_playtime": max, "player_count":player}
+        # Check catagories
+        if sc_ui.thematicBox.isChecked():
+            cats.append("Thematic")
+        if sc_ui.strategyBox.isChecked():
+            cats.append("Strategy")
+        if sc_ui.warBox.isChecked():
+            cats.append("Wargame")
+        if sc_ui.CGSBox.isChecked():
+            cats.append("CGS")
+        if sc_ui.familyBox.isChecked():
+            cats.append("Family")
+        if sc_ui.abstractBox.isChecked():
+            cats.append("Abstract")
+        if sc_ui.partyBox.isChecked():
+            cats.append("Party")
+        if sc_ui.childBox.isChecked():
+            cats.append("Children")
+        if cats == []:
+            cats = None
+        searchresults = search_games(search_text, filters, sortBy, 100, 0, cats)
+        print(searchresults)
+        if searchresults == None:
+            sc_ui.label.setText(u"<html><head/><body><p><span style=\" font-size:18pt;\">NO RESULTS FOUND</span></p></body></html>")
+        else:
+            results_window(searchresults)
+        
+        
+    sc_ui.exitButton.clicked.connect(exit_clicked)
+    sc_ui.searchButton.clicked.connect(search_clicked)
+    
 def setup_settings_view():
-    global MainWindow, logged_in_user
+    global MainWindow, logged_in_user, nickname, pv, currentversion, deletestat
     MainWindow.setCentralWidget(None)
     st_ui = Ui_SettingsWindow()
     st_ui.setupUi(MainWindow)
+    deletestat = 0
+    pv = 0
     deletestat = 0
     st_ui.buttonLogout.setText("Back") # Changed the logout button to a back button
     currentRandom, currentPriority = setting_get(logged_in_user)
     st_ui.sliderPriority.setValue(int(currentPriority))
     st_ui.sliderRandom.setValue(int(currentRandom))
+    st_ui.labelUsername.setText("Username: "+logged_in_user)
+    st_ui.labelNickname.setText("Nickname: "+logged_in_user)
+    x = "*" * len(get_pass(logged_in_user))
+    st_ui.labelPassword.setText("Password: "+x)
+    st_ui.labelVersion.setText("Boardgame Tracker v"+currentversion)
+    wishNo = len(get_wishlist(logged_in_user))
+    st_ui.labelListNo.setText("Games on Wishlist: "+str(wishNo))
     
     # Buttons
     def delete_clicked():
+        global deletestat
         if deletestat == 0:
             deletestat = 1
             st_ui.buttonDelete.setText("Are you sure?") 
-        if deletestat == 1:
+        elif deletestat == 2:
             remove_user(logged_in_user)
             setup_login_page()
+        elif deletestat == 1:
+            deletestat == 2
+            st_ui.buttonDelete.setText("Can't be undone!") 
     def logout_clicked(): # BackButton
         print("Logout Clicked")
         currentRandom = st_ui.spinRandom.value()
@@ -63,9 +207,20 @@ def setup_settings_view():
     def passE_clicked():
         pass
     def passV_clicked():
-        pass
+        global pv
+        if pv == 0:
+            st_ui.labelPassword.setText("Password: "+get_pass(logged_in_user))
+            st_ui.buttonPassView.setText("Hide")
+            pv = 1
+        else:
+            x = "*" * len(get_pass(logged_in_user))
+            st_ui.labelPassword.setText("Password: "+x)
+            st_ui.buttonPassView.setText("View")
+            pv = 0
     def reset_clicked():
-        pass
+        st_ui.buttonReset.setText("List Reset!")
+        remove_from_wishlist(logged_in_user, 'all')
+        st_ui.labelListNo.setText("Games on Wishlist: "+str(len(get_wishlist(logged_in_user))))
     def user_clicked():
         pass
     
@@ -338,7 +493,8 @@ def setup_homepage():
 
     def click_search_button():
         print("Search Button clicked")
-
+        setup_search_view()
+        
     def click_settings_button():
         print("Settings Button clicked")
         setup_settings_view()

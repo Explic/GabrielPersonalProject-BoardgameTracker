@@ -71,6 +71,11 @@ def add_to_wishlist(username, game_id):
     return True, "Game added to wishlist successfully."
 
 def remove_from_wishlist(username, game_id):
+    if game_id == "all":
+        users = load_users()
+        users[username]["wishlist"]=[]
+        save_users(users)
+        return
     users = load_users()
     if username not in users:
         return False, "Username not found."
@@ -111,6 +116,12 @@ def setting_get(username):
     random = users[username]["random"]
     priority = users[username]["priority"]
     return random, priority
+
+def get_pass(username):
+    users = load_users()
+    if username not in users:
+        return None, None
+    return users[username]["password"]
 
 # --- Testing user manager ---
 if __name__ == "__main__":

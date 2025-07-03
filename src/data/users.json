@@ -1,20 +1,12 @@
 {
-    "testuser123": {
-        "password": "1234567",
-        "wishlist": [
-            "161936",
-            "224517",
-            "187645",
-            "115746",
-            "167791",
-            "174430",
-            "291457"
-        ],
-        "random": 0,
-        "priority": 5
-    },
     "newuser": {
         "password": "1234567",
         "wishlist": []
+    },
+    "testuser123": {
+        "password": "1234567",
+        "wishlist": [],
+        "random": 0,
+        "priority": 5
     }
 }

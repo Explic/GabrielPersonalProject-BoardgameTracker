@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>380</width>
+    <height>351</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>380</width>
+    <height>351</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>380</width>
+    <height>351</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>221</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; font-weight:700;&quot;&gt;Search For Games&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>361</width>
+      <height>231</height>
+     </rect>
+    </property>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>51</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="statusTip">
+      <string>Leave blank to search all games</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Search:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="SearchBar">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>10</y>
+       <width>291</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Leave blank for no query</string>
+     </property>
+     <property name="placeholderText">
+      <string>Search for a board game...</string>
+     </property>
+    </widget>
+    <widget class="QSlider" name="minSlider">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>40</y>
+       <width>160</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>1000</number>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>81</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Leave at 0 for no min</string>
+     </property>
+     <property name="statusTip">
+      <string>Leave at 0 for no min</string>
+     </property>
+     <property name="whatsThis">
+      <string/>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Min Playtime:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="minSpin">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>40</y>
+       <width>81</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>1000</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>81</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Leave at 0 for no max</string>
+     </property>
+     <property name="statusTip">
+      <string>Leave at 0 for no max</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Max Playtime:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>71</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>(In minutes)</string>
+     </property>
+    </widget>
+    <widget class="QSlider" name="maxSlider">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>80</y>
+       <width>160</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>1000</number>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="maxSpin">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>80</y>
+       <width>81</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>1000</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="playerSpin">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>110</y>
+       <width>71</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>100</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>110</y>
+       <width>81</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Leave at 0 for any playercount</string>
+     </property>
+     <property name="statusTip">
+      <string>Leave at 0 for any playercount</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Playercount:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="widget_2" native="true">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>110</y>
+       <width>181</width>
+       <height>111</height>
+      </rect>
+     </property>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>81</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Selecting more than 2 can lead to no results</string>
+      </property>
+      <property name="statusTip">
+       <string>Selecting more than 2 can lead to no results</string>
+      </property>
+      <property name="whatsThis">
+       <string/>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Catagories:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="thematicBox">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>75</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Thematic</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="warBox">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>60</y>
+        <width>75</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>War</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="strategyBox">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>75</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Strategy</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="CGSBox">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>80</y>
+        <width>75</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Card Games</string>
+      </property>
+      <property name="statusTip">
+       <string>Card Games</string>
+      </property>
+      <property name="text">
+       <string>CGS</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="familyBox">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>20</y>
+        <width>75</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Family</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="abstractBox">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>40</y>
+        <width>75</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Abstract</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="partyBox">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>60</y>
+        <width>75</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Party</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="childBox">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>80</y>
+        <width>75</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Childrens</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QComboBox" name="comboSort">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>180</y>
+       <width>151</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>Rank</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string># of Owners</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>BGG ID</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="label_8">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>160</y>
+       <width>81</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Leave at 0 for any playercount</string>
+     </property>
+     <property name="statusTip">
+      <string>What results come up first</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Sort By:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="searchButton">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>290</y>
+      <width>61</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="statusTip">
+     <string>Search with selected settings</string>
+    </property>
+    <property name="text">
+     <string>Search</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="exitButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>290</y>
+      <width>51</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="statusTip">
+     <string>Back to homepage</string>
+    </property>
+    <property name="text">
+     <string>Exit</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>minSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>minSpin</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>190</x>
+     <y>101</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>300</x>
+     <y>108</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>minSpin</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>minSlider</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>292</x>
+     <y>96</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>241</x>
+     <y>97</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>maxSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>maxSpin</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>243</x>
+     <y>143</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>291</x>
+     <y>144</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>maxSpin</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>maxSlider</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>288</x>
+     <y>130</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>260</x>
+     <y>136</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
